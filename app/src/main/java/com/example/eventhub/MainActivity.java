@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
     Button login_student;
 
@@ -16,14 +18,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         login_student=findViewById(R.id.LoginAsStudent);
-        login_student.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, Activity2.class);
-                startActivity(i);
-            }
+        login_student.setOnClickListener(view -> {
+            Intent i = new Intent(MainActivity.this, Activity2.class);
+            startActivity(i);
         });
-
     }
 
 }

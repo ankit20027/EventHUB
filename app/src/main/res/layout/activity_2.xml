@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/submit"
+        android:id="@+id/submitButton"
         android:layout_width="155dp"
         android:layout_height="48dp"
         android:layout_marginTop="260sp"
@@ -23,10 +23,10 @@
         app:layout_constraintHorizontal_bias="0.490"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.446"></androidx.appcompat.widget.AppCompatButton>
+        app:layout_constraintVertical_bias="0.446" />
 
     <EditText
-        android:id="@+id/Password"
+        android:id="@+id/passwordText"
         android:layout_width="301dp"
         android:layout_height="51dp"
         android:ems="10"
@@ -50,7 +50,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.727"></TextView>
+        app:layout_constraintVertical_bias="0.727" />
 
     <View
         android:id="@+id/view"
@@ -220,7 +220,7 @@
         app:layout_constraintHorizontal_bias="0.445"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.283"></TextView>
+        app:layout_constraintVertical_bias="0.283" />
 
     <View
         android:layout_width="90dp"
@@ -236,7 +236,7 @@
         app:layout_constraintVertical_bias="0.306" />
 
     <EditText
-        android:id="@+id/Email"
+        android:id="@+id/emailText"
         android:layout_width="301dp"
         android:layout_height="51dp"
         android:ems="10"
