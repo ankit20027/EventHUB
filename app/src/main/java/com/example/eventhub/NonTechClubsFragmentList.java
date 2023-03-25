@@ -1,6 +1,7 @@
 package com.example.eventhub;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,6 +30,8 @@ public class NonTechClubsFragmentList extends Fragment implements RecyclerViewIn
     List<ClubsListModelClass> userList;
     Adapter adapter;
     View view;
+
+    ArrayList<String> clubs;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -86,7 +90,8 @@ public class NonTechClubsFragmentList extends Fragment implements RecyclerViewIn
 
     private void initializeData() {
         userList = new ArrayList<>();
-        String[] clubs = {"Astronuts", "Audiobytes", "Enactus", "Finexxia" , "Girl Up", "litsoc", "Machaan", "Madtoes", "Meraki", "Mic Drop", "Muse", "Philsoc" ,"Salt n Pepper"};
+//        String[] clubs = {"Astronuts", "Audiobytes", "Enactus", "Finexxia" , "Girl Up", "litsoc", "Machaan", "Madtoes", "Meraki", "Mic Drop", "Muse", "Philsoc" ,"Salt n Pepper"};
+        clubs = new ArrayList<String>(Arrays.asList("Astronuts", "Audiobytes", "Enactus", "Finexxia" , "Girl Up", "litsoc", "Machaan", "Madtoes", "Meraki", "Mic Drop", "Muse", "Philsoc" ,"Salt n Pepper"));
         for(String club : clubs) {
             userList.add(new ClubsListModelClass(club, "---------------------"));
         }
@@ -106,6 +111,11 @@ public class NonTechClubsFragmentList extends Fragment implements RecyclerViewIn
 
     @Override
     public void onClickForListItem(int position) {
+        // position: index(o-based) of the view present in recycler view.
+        Intent intent = new Intent(this.getActivity(), ClubPage.class);
+        String clubName = clubs.get(position);
+        intent.putExtra("CLUB_NAME", clubName);
+        startActivity(intent);
 
     }
 }

@@ -20,10 +20,10 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TechClubsListFragment#newInstance} factory method to
+ * Use the {@link UpcomingEventsListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TechClubsListFragment extends Fragment implements RecyclerViewInterface{
+public class UpcomingEventsListFragment extends Fragment implements RecyclerViewInterface{
 
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
@@ -31,7 +31,7 @@ public class TechClubsListFragment extends Fragment implements RecyclerViewInter
     Adapter adapter;
     View view;
 
-    ArrayList<String> clubs;
+    ArrayList<String> eventsList;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,7 +42,7 @@ public class TechClubsListFragment extends Fragment implements RecyclerViewInter
     private String mParam1;
     private String mParam2;
 
-    public TechClubsListFragment() {
+    public UpcomingEventsListFragment() {
         // Required empty public constructor
     }
 
@@ -52,11 +52,11 @@ public class TechClubsListFragment extends Fragment implements RecyclerViewInter
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ListFragment.
+     * @return A new instance of fragment UpcomingEventsListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TechClubsListFragment newInstance(String param1, String param2) {
-        TechClubsListFragment fragment = new TechClubsListFragment();
+    public static UpcomingEventsListFragment newInstance(String param1, String param2) {
+        UpcomingEventsListFragment fragment = new UpcomingEventsListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -77,7 +77,7 @@ public class TechClubsListFragment extends Fragment implements RecyclerViewInter
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return view = inflater.inflate(R.layout.fragment_tech_clubs_list, container, false);
+        return view =  inflater.inflate(R.layout.fragment_upcoming_events_list, container, false);
     }
 
     @Override
@@ -91,10 +91,10 @@ public class TechClubsListFragment extends Fragment implements RecyclerViewInter
 
     private void initializeData() {
         userList = new ArrayList<>();
-//        String[] clubs = {"Cyborg", "Byld" ,"Dark Code", "Foobar", "BioBytes", "ACM" ,"IEEE", "Evariste", "LeanIn", "Women In Tech", "OWASP", "Design Hub" ,"Electroholics"};
-        clubs = new ArrayList<String>(Arrays.asList("Cyborg", "Byld" ,"Dark Code", "Foobar", "BioBytes", "ACM" ,"IEEE", "Evariste", "LeanIn", "Women In Tech", "OWASP", "Design Hub" ,"Electroholics"));
-        for(String club : clubs) {
-            userList.add(new ClubsListModelClass(club, "---------------------"));
+        eventsList = new ArrayList<String>(Arrays.asList("Upcoming Event 1", "Upcoming Event 2", "Upcoming Event 3" ,"Upcoming Event 4",
+                "Upcoming Event 5", "Upcoming Event 6", "Upcoming Event 7", "Upcoming Event 8", "Upcoming Event 9", "Upcoming Event 10", "Upcoming Event 11", "Upcoming Event 12"));
+        for(String event : eventsList) {
+            userList.add(new ClubsListModelClass(event, "---------------------"));
         }
     }
 
@@ -111,10 +111,11 @@ public class TechClubsListFragment extends Fragment implements RecyclerViewInter
 
     @Override
     public void onClickForListItem(int position) {
-        // position: index(o-based) of the view present in recycler view.
-        Intent intent = new Intent(this.getActivity(), ClubPage.class);
-        String clubName = clubs.get(position);
-        intent.putExtra("CLUB_NAME", clubName);
+        Intent intent = new Intent(this.getActivity(), EventPage.class);
+        ClubPage clubPage = (ClubPage) getActivity();
+        intent.putExtra("CLUB_NAME", clubPage.getClubName());
+        intent.putExtra("EVENT", eventsList.get(position));
+        intent.putExtra("TYPE","upcoming");
         startActivity(intent);
     }
 }
