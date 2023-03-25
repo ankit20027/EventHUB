@@ -10,4 +10,6 @@
     <color name="MainActivity">#C793E0</color>
     <color name="LoginCoordinatorButton">#9502DC</color>
     <color name="LoginCoordinateEndColor">#54027C</color>
+    <color name="blueBlack">#111f28</color>
+
 </resources>

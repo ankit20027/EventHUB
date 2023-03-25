@@ -38,15 +38,17 @@ public class Activity2 extends AppCompatActivity {
                 passwdTxt.setError("Enter password longer than 6 chars");
                 passwdTxt.requestFocus();
             } else {
-                auth.signInWithEmailAndPassword(email,passwd).addOnCompleteListener(this, task-> {
-                    if (task.isSuccessful()) {
-                        Log.i(TAG, "successful login");
-                    } else {
-                        // make user already exist error prompt
-                        emailTxt.setError("Enter the valid email");
-                        emailTxt.requestFocus();
-                    }
-                });
+                Intent intent = new Intent(this, ClubsList.class);
+                startActivity(intent);
+//                auth.signInWithEmailAndPassword(email,passwd).addOnCompleteListener(this, task-> {
+//                    if (task.isSuccessful()) {
+//                        Log.i(TAG, "successful login");
+//                    } else {
+//                        // make user already exist error prompt
+//                        emailTxt.setError("Enter the valid email");
+//                        emailTxt.requestFocus();
+//                    }
+//                });
             }
         });
     }
