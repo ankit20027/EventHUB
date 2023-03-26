@@ -14,6 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,6 +28,7 @@ import java.util.List;
  */
 public class UpcomingEventsListFragment extends Fragment implements RecyclerViewInterface{
 
+    DatabaseReference reff;
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     List<ClubsListModelClass> userList;
@@ -111,11 +115,19 @@ public class UpcomingEventsListFragment extends Fragment implements RecyclerView
 
     @Override
     public void onClickForListItem(int position) {
+        // OnClick Listener for all upcoming events.
+        reff = FirebaseDatabase.getInstance().getReference("Clubs");
         Intent intent = new Intent(this.getActivity(), EventPage.class);
         ClubPage clubPage = (ClubPage) getActivity();
+        // Fetching data from cloud dB.
+        String venue="", time="", description="";
+//        venue = reff.child("")
         intent.putExtra("CLUB_NAME", clubPage.getClubName());
         intent.putExtra("EVENT", eventsList.get(position));
-        intent.putExtra("TYPE","upcoming");
+        intent.putExtra("VENUE",venue);
+        intent.putExtra("TIME",time);
+        intent.putExtra("DESCRIPTION",description);
+        // Venue, Time, Description
         startActivity(intent);
     }
 }

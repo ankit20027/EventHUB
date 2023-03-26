@@ -19,14 +19,14 @@ public class EventPage extends AppCompatActivity {
 
         // Fetching Events detail from prev component.
         Intent intent = getIntent();
-        String eventType = intent.getStringExtra("TYPE");
         String event_name = intent.getStringExtra("EVENT");
         String organizer = intent.getStringExtra("CLUB_NAME");
-        String date = "01 March, 2023";
-        String venue = "ONLINE";
+        String desc = intent.getStringExtra("DESCRIPTION");
+        String date = intent.getStringExtra("TIME");
+        String venue = intent.getStringExtra("VENUE");
 
         String description = "ORGANIZER: " + organizer + "\n\n"  + "DATE: " + date + "\n\nVENUE: " + venue ;
-        description += "\n\nABOUT THE EVENT: \n asdnaksjndfkasndkasjdkajsdjkajsd\n asdnaksjndfkasndkasjdkajsdjkajasdasdassd\n asdasdasdasd.";
+        description += "\n\n" + desc;
 
         // Set text in views.
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView eventName = findViewById(R.id.eventName);
