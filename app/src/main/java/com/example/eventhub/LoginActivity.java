@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -40,8 +39,9 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 auth.signInWithEmailAndPassword(email,passwd).addOnCompleteListener(this, task-> {
                     if (task.isSuccessful()) {
-//                        Log.i(TAG, "successful login");
-                        Toast.makeText(getApplicationContext(),"Ho gaya login", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(this, ClubsList.class);
+                        startActivity(intent);
+                        Log.i(TAG, "successful login");
                     } else {
                         // make user already exist error prompt
                         emailTxt.setError("Enter the valid email");

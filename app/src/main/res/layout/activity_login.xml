@@ -30,7 +30,7 @@
         android:layout_width="301dp"
         android:layout_height="51dp"
         android:ems="10"
-        android:inputType="textPassword"
+        android:inputType="textPersonName"
         android:hint="Password"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

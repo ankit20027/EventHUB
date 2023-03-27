@@ -6,10 +6,6 @@ public class Club {
     private String Cname;
     private ArrayList<Event> EList;
 
-    public  Club() {
-
-    }
-
     public Club(String _Cname, ArrayList<Event> _EList) {
         this.Cname = _Cname;
         this.EList = _EList;

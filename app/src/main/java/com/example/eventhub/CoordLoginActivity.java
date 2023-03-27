@@ -2,7 +2,6 @@ package com.example.eventhub;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,9 +32,7 @@ public class CoordLoginActivity extends AppCompatActivity {
             } else {
                 auth.signInWithEmailAndPassword(email,passwd).addOnCompleteListener(this, task-> {
                     if (task.isSuccessful()) {
-                        Intent i = new Intent(this,RegisterEventActivity.class);
-                        i.putExtra("clubName", email.split("@")[0]);
-                        startActivity(i);
+                        Toast.makeText(getApplicationContext(),"Ho gaya login Coord ka", Toast.LENGTH_LONG).show();
                     } else {
                         // make user already exist error prompt
                         emailTxt.setError("Enter the valid email");
