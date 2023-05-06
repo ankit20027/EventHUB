@@ -24,6 +24,9 @@
             android:name=".AddEventActivity"
             android:exported="false" />
         <activity
+            android:name=".Calendar_ListView"
+            android:exported="false" />
+        <activity
             android:name=".RegisterEventActivity"
             android:exported="false" />
         <activity

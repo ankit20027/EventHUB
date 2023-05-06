@@ -9,4 +9,5 @@
     <string name="Before10Min">Before 10 Min</string>
     <string name="Before20Min">Before 20 Min</string>
     <string name="Custom">Custom</string>
+    <string name="ShowEvents">Show Events</string>
 </resources>

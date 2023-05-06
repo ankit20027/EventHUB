@@ -138,6 +138,8 @@ public class TechClubsListFragment extends Fragment implements RecyclerViewInter
     }
 
     private void initializeRecyclerView(ArrayList<ClubsListModelClass> clubsList) {
+        if(!isAdded())
+            return;
         @SuppressLint("DiscouragedApi") int startView = getResources().getIdentifier("recyclerView", "id", requireContext().getPackageName());
         recyclerView = view.findViewById(startView);
         linearLayoutManager = new LinearLayoutManager(getActivity());

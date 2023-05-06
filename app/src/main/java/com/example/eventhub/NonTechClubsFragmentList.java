@@ -134,6 +134,8 @@ public class NonTechClubsFragmentList extends Fragment implements RecyclerViewIn
     }
 
     private void initializeRecyclerView(ArrayList<ClubsListModelClass> clubNames) {
+        if(!isAdded())
+            return;
         @SuppressLint("DiscouragedApi") int startView = getResources().getIdentifier("recyclerView1", "id", requireContext().getPackageName());
         recyclerView = view.findViewById(startView);
         linearLayoutManager = new LinearLayoutManager(getActivity());

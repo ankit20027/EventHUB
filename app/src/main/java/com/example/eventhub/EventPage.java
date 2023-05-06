@@ -15,6 +15,7 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -48,10 +49,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class EventPage extends AppCompatActivity {
 
     private static final int REQUEST_CODE_SET_ALARM_PERMISSION = 1;
+    public static final int MY_PERMISSIONS_REQUEST_WRITE_CALENDAR = 1;
+
     RadioGroup radioGroup;
     RadioButton Before10, Before20, Custom;
     Button button;
@@ -67,7 +73,7 @@ public class EventPage extends AppCompatActivity {
         setContentView(R.layout.activity_event_page);
         Button Reminder_Notification = findViewById(R.id.Reminder_Notification);
         Button button = findViewById(R.id.button);
-        Button DeleteEvent = findViewById(R.id.DeleteEvent);
+        Button ShowEvents = findViewById(R.id.ShowEvents);
 
         // Fetching Events detail from prev component.
         Intent intent = getIntent();
@@ -116,6 +122,14 @@ public class EventPage extends AppCompatActivity {
                 Del();
             }
         });
+
+        ShowEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Show_Reminders_List();
+            }
+        });
+
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -150,6 +164,7 @@ public class EventPage extends AppCompatActivity {
 
             calendar.add(Calendar.HOUR_OF_DAY, h);
             calendar.add(Calendar.MINUTE, m);
+            calendar.add(Calendar.MONTH, -1);
             Date updatedDate = calendar.getTime();
 
             Log.d("REMINDER_TIME", "Minus Date "+new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(updatedDate));
@@ -161,11 +176,16 @@ public class EventPage extends AppCompatActivity {
             MM = Integer.parseInt(new SimpleDateFormat("MM").format(updatedDate));
             yyyy = Integer.parseInt(new SimpleDateFormat("yyyy").format(updatedDate));
 
+
+            Log.d("REMINDER_TIME", "Start "+Integer.toString(hh)+ " "+ Integer.toString(mm)+ " "+ Integer.toString(dd)+ " "+ Integer.toString(MM)+ " "+ Integer.toString(yyyy));
+
             Date newDate = format.parse(dateString);
             Calendar calendar2 = Calendar.getInstance();
             calendar2.setTime(newDate);
 
             calendar2.add(Calendar.HOUR_OF_DAY, 1);
+            calendar2.add(Calendar.MONTH, -1);
+
             Date updatedNewDate = calendar2.getTime();
 
             Log.d("REMINDER_TIME", "End Time "+new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(updatedNewDate));
@@ -185,7 +205,7 @@ public class EventPage extends AppCompatActivity {
         Calendar endTime = Calendar.getInstance();
         endTime.set(yyyy1, MM1, dd1, hh1, mm1);
 
-        String title = event_name;
+        String title = event_name+"_eh"; // Added '_eh' denoting our event
         String description = desc;
         String location = "IIIT Delhi, Okhla Industrial Estate, Phase III, near Govind Puri Metro Station, New Delhi, Delhi 110020";
 
@@ -236,28 +256,6 @@ public class EventPage extends AppCompatActivity {
         return eventID;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == ADD_EVENT_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                // get event ID from returned intent
-                long eventID = Long.parseLong(data.getData().getLastPathSegment());
-
-                // set event URI
-                eventUri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventID);
-
-                Log.d("REMINDER_URI", "URI_HERE-----> "+eventUri.toString());
-
-                // use eventID and eventUri as needed
-            }
-            else{
-                Log.d("REMINDER_URI", "Event URI not found");
-
-            }
-        }
-    }
     public void RemoveCalendarEvent(View view) {
         String[] projection = new String[]{CalendarContract.Events._ID, CalendarContract.Events.TITLE};
         String selection = CalendarContract.Events.TITLE + " = ?";
@@ -401,7 +399,72 @@ public class EventPage extends AppCompatActivity {
         }
     }
     public void Del(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR)
+                == PackageManager.PERMISSION_DENIED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_CALENDAR)) {
+                // show a rationale message explaining why the app needs this permission
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Permission Required");
+                builder.setMessage("This app requires the WRITE_CALENDAR permission to set reminders.");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ActivityCompat.requestPermissions(EventPage.this,
+                                new String[]{Manifest.permission.WRITE_CALENDAR},
+                                MY_PERMISSIONS_REQUEST_WRITE_CALENDAR);
+                    }
+                });
+                builder.show();
+            } else {
+                // request the permission
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_CALENDAR},
+                        MY_PERMISSIONS_REQUEST_WRITE_CALENDAR);
+            }
+        }
         Utility utility = new Utility();
         utility.deleteEventByTitle(EventPage.this, "Fashion Studio");
     }
+    public void show_events(){
+        List<Calendar_DB> events_list = RoomDB_Helper.getInstance(this).eventDao().getEventsList();
+        Log.d("REMINDER_LIST", events_list.toString());
+
+        Utility utility = new Utility();
+        utility.readCalendarEvent(EventPage.this);
+
+        ArrayList<String> titles = utility.nameOfEvent;
+        ArrayList<String> start = utility.startDates;
+        ArrayList<String> end = utility.endDates;
+
+        int i = 0;
+        ArrayList<String> myEvents = new ArrayList<String>();
+//        ArrayList<String> myStart = new ArrayList<String>();
+//        ArrayList<String> myEnd = new ArrayList<String>();
+        for(String str : titles){
+            if(str != null && str.length() > 3 && str.substring(str.length() - 3).equals("_eh")){
+                myEvents.add(str);
+//                i++;
+//                myStart.add(start.get(i));
+//                myEnd.add(end.get(i));
+            }
+        }
+
+        Log.d("REMINDER_MY_EVENTS", myEvents.toString());
+
+        ArrayList<String> eve = new ArrayList<String>();
+        for(Calendar_DB obj : events_list){
+            eve.add(obj.getTitle());
+        }
+        Set<String> set = new HashSet<String>(eve);
+        Log.d("REMINDER_TITLE", set.toString());
+
+    }
+
+    public void Show_Reminders_List(){
+        Intent intent = new Intent(this, Calendar_ListView.class);
+        startActivity(intent);
+    }
+
 }

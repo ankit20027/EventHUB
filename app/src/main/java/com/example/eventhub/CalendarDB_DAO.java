@@ -13,6 +13,9 @@ public interface CalendarDB_DAO {
     @Query("SELECT * FROM Events ORDER BY start_time ASC")
     List<Calendar_DB> getAllEvents();
 
+    @Query("SELECT DISTINCT title, * FROM Events ")
+    List<Calendar_DB> getEventsList();
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Calendar_DB event);
 

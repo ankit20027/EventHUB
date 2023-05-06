@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ import java.util.Calendar;
 
 public class Utility {
     public ArrayList<String> nameOfEvent = new ArrayList<String>();
+    public ArrayList<ArrayList<String>> Event_Start_End = new ArrayList<ArrayList<String>>();
+
     public ArrayList<String> startDates = new ArrayList<String>();
     public ArrayList<String> endDates = new ArrayList<String>();
     public ArrayList<String> descriptions = new ArrayList<String>();
@@ -38,11 +41,13 @@ public class Utility {
         Log.d("UTILITY_OBJ", "SIZE: "+ Integer.toString(cursor.getCount()));
 
         for (int i = 0; i < CNames.length; i++) {
-
-
+            String str1="", str2, str3;
+//            ArrayList<String> temp = new ArrayList<String>(3);
             nameOfEvent.add(cursor.getString(1));
+
             if(cursor.getString(3) != null){
                 startDates.add(getDate(Long.parseLong(cursor.getString(3))));
+
             }
             if(cursor.getString(4) != null){
                 endDates.add(getDate(Long.parseLong(cursor.getString(4))));
@@ -50,6 +55,8 @@ public class Utility {
             descriptions.add(cursor.getString(2));
             CNames[i] = cursor.getString(1);
             cursor.moveToNext();
+
+
 
         }
         return nameOfEvent;
@@ -71,9 +78,17 @@ public class Utility {
                 Uri deleteUri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, id);
                 int rows = cr.delete(deleteUri, null, null);
                 Log.d("UTILITY_OBJ", "Rows deleted: " + rows);
+                Toast.makeText(context, "Event Successfully Deleted", Toast.LENGTH_SHORT).show();
+
             }
-            else
+            else {
                 Log.d("UTILITY_OBJ", "EVENT ID NOT FOUND");
+                Toast.makeText(context, "Event NOT FOUND!!", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else {
+            Log.d("UTILITY_OBJ", "EVENT ID NOT FOUND");
+            Toast.makeText(context, "Event NOT FOUND!!", Toast.LENGTH_SHORT).show();
         }
         cursor.close();
     }

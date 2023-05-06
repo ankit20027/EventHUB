@@ -4,6 +4,7 @@ import android.net.Uri;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "Events")
@@ -37,14 +38,12 @@ public class Calendar_DB {
         this.endTime = endTime;
 //        this.URI_ID = URI_ID;
     }
-//    public Calendar_DB(String title, String description, String location, long startTime, long endTime, String URI_ID) {
-//        this.title = title;
-//        this.description = description;
-//        this.location = location;
-//        this.startTime = startTime;
-//        this.endTime = endTime;
-//        this.URI_ID = URI_ID;
-//    }
+    @Ignore
+    public Calendar_DB(String title, long startTime, long endTime) {
+        this.title = title;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
 
     public int getId() {
         return id;
@@ -101,6 +100,7 @@ public class Calendar_DB {
 //    public void setURI_ID(String URI_ID) {
 //        this.URI_ID = URI_ID;
 //    }
+
 
 }
 
