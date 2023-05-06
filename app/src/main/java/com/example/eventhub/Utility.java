@@ -15,15 +15,19 @@ import java.util.Calendar;
 
 public class Utility {
     public ArrayList<String> nameOfEvent = new ArrayList<String>();
-    public ArrayList<ArrayList<String>> Event_Start_End = new ArrayList<ArrayList<String>>();
 
     public ArrayList<String> startDates = new ArrayList<String>();
     public ArrayList<String> endDates = new ArrayList<String>();
     public ArrayList<String> descriptions = new ArrayList<String>();
     public ArrayList<String> eventIds = new ArrayList<String>();
+    ContentResolver resolver;
+    public Utility(Context context){
+        resolver = context.getContentResolver();
+    }
 
     public ArrayList<String> readCalendarEvent(Context context) {
-        Cursor cursor = context.getContentResolver()
+
+        Cursor cursor = resolver
                 .query(
                         Uri.parse("content://com.android.calendar/events"),
                         new String[]{"calendar_id", "title", "description",
@@ -55,15 +59,13 @@ public class Utility {
             descriptions.add(cursor.getString(2));
             CNames[i] = cursor.getString(1);
             cursor.moveToNext();
-
-
-
         }
         return nameOfEvent;
     }
     public void deleteEventByTitle(Context context, String title) {
-        ContentResolver cr = context.getContentResolver();
-        Cursor cursor = cr.query(
+//        ContentResolver cr = context.getContentResolver();
+
+        Cursor cursor = resolver.query(
                 Uri.parse("content://com.android.calendar/events"),
                 new String[]{"_id"},
                 "title=?",
@@ -76,7 +78,9 @@ public class Utility {
             if(temp >= 0) {
                 id = cursor.getLong(temp);
                 Uri deleteUri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, id);
-                int rows = cr.delete(deleteUri, null, null);
+//                int rows = cr.delete(deleteUri, null, null);
+                int rows = resolver.delete(deleteUri, null, null);
+
                 Log.d("UTILITY_OBJ", "Rows deleted: " + rows);
                 Toast.makeText(context, "Event Successfully Deleted", Toast.LENGTH_SHORT).show();
 
@@ -95,7 +99,7 @@ public class Utility {
 
     public String getDate(long milliSeconds) {
         SimpleDateFormat formatter = new SimpleDateFormat(
-                "dd/MM/yyyy hh:mm:ss a");
+                "dd/MM/yyyy HH:mm:ss");
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliSeconds);
         return formatter.format(calendar.getTime());

@@ -2,8 +2,13 @@ package com.example.eventhub;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -13,6 +18,7 @@ public class CoordLoginActivity extends AppCompatActivity {
     Button submitButton;
     EditText emailTxt,passwdTxt;
     FirebaseAuth auth;
+    boolean passwordVisible;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +47,31 @@ public class CoordLoginActivity extends AppCompatActivity {
                         emailTxt.requestFocus();
                     }
                 });
+            }
+        });
+        passwdTxt.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int Right = 2;
+                if (event.getAction() == MotionEvent.ACTION_UP){
+                    if(event.getRawX()>=passwdTxt.getRight()-passwdTxt.getCompoundDrawables()[Right].getBounds().width()){
+                        int selection = passwdTxt.getSelectionEnd();
+                        if(passwordVisible){
+                            passwdTxt.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_baseline_visibility_off_24,0);
+                            passwdTxt.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                            passwordVisible = false;
+                        }
+                        else {
+                            passwdTxt.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_baseline_visibility_24,0);
+                            passwdTxt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                            passwordVisible = true;
+                        }
+                        passwdTxt.setSelection(selection);
+                        return true;
+                    }
+                }
+                return false;
             }
         });
     }

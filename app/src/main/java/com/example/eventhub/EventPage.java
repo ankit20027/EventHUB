@@ -225,11 +225,11 @@ public class EventPage extends AppCompatActivity {
 //        Log.d("REMINDER_URI", "URI-----> "+eventUri.toString());
         long e_id = getEventID(title);
         Log.d("REMINDER_EVENT", Integer.toString((int)e_id));
-        Utility utility = new Utility();
-        ArrayList<String> ev = new ArrayList<String>();
-        utility.readCalendarEvent(EventPage.this);
-        ev = utility.nameOfEvent;
-        Log.d("UTILITY_OBJ", ev.toString());
+//        Utility utility = new Utility(this);
+//        ArrayList<String> ev = new ArrayList<String>();
+//        utility.readCalendarEvent(EventPage.this);
+//        ev = utility.nameOfEvent;
+//        Log.d("UTILITY_OBJ", ev.toString());
     }
 
     public long getEventID(String eventTitle) {
@@ -424,42 +424,8 @@ public class EventPage extends AppCompatActivity {
                         MY_PERMISSIONS_REQUEST_WRITE_CALENDAR);
             }
         }
-        Utility utility = new Utility();
-        utility.deleteEventByTitle(EventPage.this, "Fashion Studio");
-    }
-    public void show_events(){
-        List<Calendar_DB> events_list = RoomDB_Helper.getInstance(this).eventDao().getEventsList();
-        Log.d("REMINDER_LIST", events_list.toString());
-
-        Utility utility = new Utility();
-        utility.readCalendarEvent(EventPage.this);
-
-        ArrayList<String> titles = utility.nameOfEvent;
-        ArrayList<String> start = utility.startDates;
-        ArrayList<String> end = utility.endDates;
-
-        int i = 0;
-        ArrayList<String> myEvents = new ArrayList<String>();
-//        ArrayList<String> myStart = new ArrayList<String>();
-//        ArrayList<String> myEnd = new ArrayList<String>();
-        for(String str : titles){
-            if(str != null && str.length() > 3 && str.substring(str.length() - 3).equals("_eh")){
-                myEvents.add(str);
-//                i++;
-//                myStart.add(start.get(i));
-//                myEnd.add(end.get(i));
-            }
-        }
-
-        Log.d("REMINDER_MY_EVENTS", myEvents.toString());
-
-        ArrayList<String> eve = new ArrayList<String>();
-        for(Calendar_DB obj : events_list){
-            eve.add(obj.getTitle());
-        }
-        Set<String> set = new HashSet<String>(eve);
-        Log.d("REMINDER_TITLE", set.toString());
-
+//        Utility utility = new Utility(this);
+//        utility.deleteEventByTitle(EventPage.this, "Fashion Studio");
     }
 
     public void Show_Reminders_List(){
