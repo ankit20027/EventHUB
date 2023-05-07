@@ -89,17 +89,23 @@ public class EventPage extends AppCompatActivity {
         dateString = intent.getStringExtra("TIME");
         venue = intent.getStringExtra("VENUE");
 
+
         String description = "ORGANIZER: " + organizer + "\n"  + "DATE: " + dateString + "\nVENUE: " + venue ;
         description += "\n" + desc;
+
+//        Toast.makeText(this, event_name +" " + organizer +" " + desc + " " + dateString + " " + venue,Toast.LENGTH_SHORT).show();
+        String descriptionString = "ORGANIZER: " + organizer + "\n"  + "DATE: " + dateString + "\nVENUE: " + venue ;
+        descriptionString += "\n" + desc;
+//        Toast.makeText(this, descriptionString, Toast.LENGTH_SHORT).show();
+
 
         // Set text in views.
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView eventName = findViewById(R.id.eventName);
         eventName.setTypeface(null, Typeface.BOLD_ITALIC);
         eventName.setText(event_name);
 
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView descriptionText = findViewById(R.id.description);
-        descriptionText.setText(description);
-
+        TextView descriptionText = findViewById(R.id.description);
+        descriptionText.setText(descriptionString);
 
         Reminder_Notification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,7 +181,6 @@ public class EventPage extends AppCompatActivity {
             Date updatedDate = calendar.getTime();
 
             Log.d("REMINDER_TIME", "Minus Date "+new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(updatedDate));
-
 
             hh = Integer.parseInt(new SimpleDateFormat("HH").format(updatedDate));
             mm = Integer.parseInt(new SimpleDateFormat("mm").format(updatedDate));
