@@ -66,7 +66,7 @@ public class EventPage extends AppCompatActivity {
 
     private static final int ADD_EVENT_REQUEST_CODE = 1;
     private Uri eventUri;
-    //Location need to be added as field while taking event data
+//    Location need to be added as field while taking event data
     int time = 0, h_, m_;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -63,13 +63,11 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,
                     new String[]{android.Manifest.permission.READ_CALENDAR},
                     MY_PERMISSIONS_REQUEST_READ_CALENDAR);
-            Toast.makeText(this, "READ_CALENDAR Permission granted", Toast.LENGTH_SHORT).show();
         }
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_CALENDAR)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_CALENDAR},
                     MY_PERMISSIONS_REQUEST_WRITE_CALENDAR);
-            Toast.makeText(this, "WRITE_CALENDAR Permission granted", Toast.LENGTH_SHORT).show();
         }
     }
 

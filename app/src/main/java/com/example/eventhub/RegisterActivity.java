@@ -2,7 +2,9 @@ package com.example.eventhub;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -19,6 +21,11 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        ConstraintLayout constraintLayout = findViewById(R.id.registerxmlID);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2500);
+        animationDrawable.setExitFadeDuration(5500);
+        animationDrawable.start();
         auth = FirebaseAuth.getInstance();
         Button signupButton = findViewById(R.id.signupButton);
         signupButton.setOnClickListener(view -> {

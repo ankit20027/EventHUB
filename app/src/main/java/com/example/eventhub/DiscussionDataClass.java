@@ -4,15 +4,17 @@ import java.io.Serializable;
 
 public class DiscussionDataClass {
     private String email;
+    private String title;
     private String txt;
 
     public DiscussionDataClass() {
 
     }
 
-    public DiscussionDataClass(String email, String txt) {
+    public DiscussionDataClass(String email, String title, String txt) {
         this.email = email;
         this.txt = txt;
+        this.title = title;
     }
 
     public String getEmail() {
@@ -29,5 +31,13 @@ public class DiscussionDataClass {
 
     public void setTxt(String txt) {
         this.txt = txt;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

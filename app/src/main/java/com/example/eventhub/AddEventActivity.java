@@ -50,7 +50,7 @@ public class AddEventActivity extends AppCompatActivity {
                     venue = venueTxt.getText().toString(),
                     org = orgTxt.getText().toString(),
                     time = timeTxt.getText().toString();
-            reff.child("Clubs").child(clubName).push().setValue(new Event(name,time,venue,desc,org,false, new ArrayList<>()));
+            reff.child("Clubs").child(clubName).push().setValue(new Event(name,time,venue,desc,org,false));
             reff.child("ClubsName").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {

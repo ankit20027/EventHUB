@@ -148,6 +148,7 @@ public class PastEventsListFragments extends Fragment implements RecyclerViewInt
     }
 
     private void initializeRecyclerView(ArrayList<ClubsListModelClass> eventsList) {
+        if (!isAdded()) return;
         @SuppressLint("DiscouragedApi") int startView = getResources().getIdentifier("recyclerView2", "id", requireContext().getPackageName());
         recyclerView = view.findViewById(startView);
         linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -162,7 +163,7 @@ public class PastEventsListFragments extends Fragment implements RecyclerViewInt
     public void onClickForListItem(int position) {
         // OnClick Listener for all upcoming events.
         reff = FirebaseDatabase.getInstance().getReference();
-        reff.child("Clubs").child(clubName).addValueEventListener(new ValueEventListener() {
+        reff.child("Clubs").child(clubName).addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("SimpleDateFormat")
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -204,7 +205,6 @@ public class PastEventsListFragments extends Fragment implements RecyclerViewInt
                             intent.putExtra("TIME", event.getTime());
                             intent.putExtra("EVENT",event.getName());
                             intent.putExtra("DESCRIPTION",event.getDesc());
-                            intent.putExtra("DISCUSSION", event.getDiscLs());
                             intent.putExtra("CLUB_NAME", clubName);
                             intent.putExtra("KEY", key);
                             break;

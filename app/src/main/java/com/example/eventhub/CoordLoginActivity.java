@@ -1,9 +1,11 @@
 package com.example.eventhub;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -28,6 +30,11 @@ public class CoordLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coord_login);
+        ConstraintLayout constraintLayout = findViewById(R.id.coordLoginxmlID);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2500);
+        animationDrawable.setExitFadeDuration(5500);
+        animationDrawable.start();
         coordinatorList= new ArrayList<>();
         coordinatorList.add("byld@iiitd.club");
         coordinatorList.add("acm@iiitd.club");

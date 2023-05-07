@@ -166,7 +166,7 @@ public class UpcomingEventsListFragment extends Fragment implements RecyclerView
     public void onClickForListItem(int position) {
         // OnClick Listener for all upcoming events.
         reff = FirebaseDatabase.getInstance().getReference();
-        reff.child("Clubs").child(clubName).addValueEventListener(new ValueEventListener() {
+        reff.child("Clubs").child(clubName).addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("SimpleDateFormat")
             @Override
             public void onDataChange(DataSnapshot snapshot) {
