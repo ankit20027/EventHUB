@@ -37,12 +37,12 @@ public class LoginActivity extends AppCompatActivity {
         });
         loginButton = findViewById(R.id.submitButton);
         loginButton.setOnClickListener(view -> {
-            String email = emailTxt.getText().toString(), passwd = passwdTxt.getText().toString();
+            String email = emailTxt.getText().toString().trim(), passwd = passwdTxt.getText().toString();
             if (email.isEmpty()) {
-                emailTxt.setError("Enter the valid email");
+                emailTxt.setError("E-mail field can't be EMPTY.");
                 emailTxt.requestFocus();
             } else if (passwd.length()<6) {
-                passwdTxt.setError("Enter password longer than 6 chars");
+                passwdTxt.setError("Enter password longer than 5 chars.");
                 passwdTxt.requestFocus();
             } else {
                 auth.signInWithEmailAndPassword(email,passwd).addOnCompleteListener(this, task-> {
@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                         Log.i(TAG, "successful login");
                     } else {
                         // make user already exist error prompt
-                        emailTxt.setError("Enter the valid email");
+                        emailTxt.setError("Invalid Credentials");
                         emailTxt.requestFocus();
                     }
                 });
