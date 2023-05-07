@@ -35,15 +35,13 @@ public class AddEventActivity extends AppCompatActivity {
         venueTxt = findViewById(R.id.venueText);
         orgTxt = findViewById(R.id.organizerText);
         timeTxt = findViewById(R.id.timeText);
-//        pastChkBox = findViewById(R.id.pastEventChk);
         submitButton.setOnClickListener(view -> {
             String  name = nameTxt.getText().toString(),
                     desc = descTxt.getText().toString(),
                     venue = venueTxt.getText().toString(),
                     org = orgTxt.getText().toString(),
                     time = timeTxt.getText().toString();
-//            Boolean pastTick = pastChkBox.isChecked();
-            reff.child("Clubs").child(clubName).push().setValue(new Event(name,time,venue,desc,org,false));
+            reff.child("Clubs").child(clubName).push().setValue(new Event(name,time,venue,desc,org,false, new ArrayList<>()));
             reff.child("ClubsName").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {

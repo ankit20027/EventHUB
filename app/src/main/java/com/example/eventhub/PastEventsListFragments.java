@@ -114,8 +114,13 @@ public class PastEventsListFragments extends Fragment implements RecyclerViewInt
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 ArrayList<ClubsListModelClass> eventList = new ArrayList<>(); // fetch club list
+                ArrayList<Event> data = new ArrayList<>();
                 for (DataSnapshot ds: snapshot.getChildren()) {
-                    Event event = ds.getValue(Event.class);
+                    data.add(ds.getValue(Event.class));
+                }
+
+                for (int i = 0; i < data.size(); i++) {
+                    Event event = data.get(i);
                     String eventName = event.getName();
 //                    Date date = event.getTime();
                     Boolean hasHappened = true;
@@ -164,8 +169,16 @@ public class PastEventsListFragments extends Fragment implements RecyclerViewInt
                 int index = -1;
 //                Toast.makeText(getActivity(), String.valueOf(position),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), EventPage.class);
+                ArrayList<Event> data = new ArrayList<>();
+                ArrayList<String> keys = new ArrayList<>();
                 for (DataSnapshot ds: snapshot.getChildren()) {
-                    Event event = ds.getValue(Event.class);
+                    keys.add(ds.getKey());
+                    data.add(ds.getValue(Event.class));
+
+                }
+                for(int i =0; i<data.size(); i++) {
+                    Event event = data.get(i);
+                    String key = keys.get(i);
                     String eventName = event.getName();
 //                    Toast.makeText(getActivity(), event.getName(), Toast.LENGTH_SHORT).show();
 //                    Date date = event.getTime();
@@ -191,6 +204,9 @@ public class PastEventsListFragments extends Fragment implements RecyclerViewInt
                             intent.putExtra("TIME", event.getTime());
                             intent.putExtra("EVENT",event.getName());
                             intent.putExtra("DESCRIPTION",event.getDesc());
+                            intent.putExtra("DISCUSSION", event.getDiscLs());
+                            intent.putExtra("CLUB_NAME", clubName);
+                            intent.putExtra("KEY", key);
                             break;
                         }
                     }

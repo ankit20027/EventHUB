@@ -57,7 +57,6 @@ public class EventPage extends AppCompatActivity {
 
     private static final int REQUEST_CODE_SET_ALARM_PERMISSION = 1;
     public static final int MY_PERMISSIONS_REQUEST_WRITE_CALENDAR = 1;
-
     RadioGroup radioGroup;
     RadioButton Before10, Before20, Custom;
     Button button;
@@ -128,6 +127,13 @@ public class EventPage extends AppCompatActivity {
             public void onClick(View v) {
                 Show_Reminders_List();
             }
+        });
+
+        findViewById(R.id.showDescButton).setOnClickListener(view -> {
+            Intent i = new Intent(this, DiscussionActivity.class);
+            i.putExtra("CLUB_NAME", intent.getStringExtra("CLUB_NAME"));
+            i.putExtra("KEY", intent.getStringExtra("KEY"));
+            startActivity(i);
         });
 
     }

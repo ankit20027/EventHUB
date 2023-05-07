@@ -1,12 +1,16 @@
 package com.example.eventhub;
 
+import java.util.ArrayList;
+
 public class Event {
     private String organizer,name, time, venue, desc; // dd-MM-yyyy hh:mm:ss
     private Boolean hasHappened;
+    private ArrayList<DiscussionDataClass> discLs;
 
     public Event(){
 
     }
+
     public Event(String _name, String _time, String _venue, String _desc, String organizer, Boolean _hasHappened) {
         this.name = _name;
         this.time = _time;
@@ -14,6 +18,20 @@ public class Event {
         this.desc = _desc;
         this.organizer = organizer;
         this.hasHappened = _hasHappened;
+    }
+
+    public Event(String _name, String _time, String _venue, String _desc, String organizer, Boolean _hasHappened, ArrayList<DiscussionDataClass> discLs) {
+        this.name = _name;
+        this.time = _time;
+        this.venue = _venue;
+        this.desc = _desc;
+        this.organizer = organizer;
+        this.hasHappened = _hasHappened;
+        this.discLs = discLs;
+    }
+
+    public boolean hasDisc() {
+        return discLs == null;
     }
 
     public String getOrganizer() {
@@ -62,5 +80,13 @@ public class Event {
 
     public void setHasHappened(Boolean hasHappened) {
         this.hasHappened = hasHappened;
+    }
+
+    public ArrayList<DiscussionDataClass> getDiscLs() {
+        return discLs;
+    }
+
+    public void setDiscLs(ArrayList<DiscussionDataClass> discLs) {
+        this.discLs = discLs;
     }
 }

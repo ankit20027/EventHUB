@@ -17,10 +17,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
     private final String TAG = "activitylog";
+    public static String userEmail;
     Button signup, loginButton;
     EditText emailTxt,passwdTxt;
     FirebaseAuth auth;
     boolean passwordVisible;
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                 auth.signInWithEmailAndPassword(email,passwd).addOnCompleteListener(this, task-> {
                     if (task.isSuccessful()) {
                         Intent intent = new Intent(this, ClubsList.class);
+                        userEmail = email;
                         startActivity(intent);
                         Log.i(TAG, "successful login");
                     } else {
