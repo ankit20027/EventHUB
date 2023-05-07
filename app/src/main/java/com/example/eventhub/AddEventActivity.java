@@ -65,8 +65,15 @@ public class AddEventActivity extends AppCompatActivity {
                 }
             });
 //            Toast.makeText(getApplicationContext(), "Event gaya database me", Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "EVENT ADDED TO LIST", Toast.LENGTH_SHORT).show();
-            this.finish();
+            onDestroy();
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        Toast.makeText(this, "Successfully added the event.", Toast.LENGTH_SHORT).show();
+        return ;
     }
 }
