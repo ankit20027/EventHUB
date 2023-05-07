@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -203,6 +204,7 @@ public class UpcomingEventsListFragment extends Fragment implements RecyclerView
 //                            Toast.makeText(getActivity(), organizer, Toast.LENGTH_SHORT).show();
                             intent.putExtra("ORGANIZER", event.getOrganizer());
                             intent.putExtra("VENUE", event.getVenue());
+//                            Toast.makeText(getActivity(), "VENUE: " + event.getVenue(), Toast.LENGTH_SHORT).show();
                             intent.putExtra("TIME", event.getTime());
                             intent.putExtra("EVENT",event.getName());
                             intent.putExtra("DESCRIPTION",event.getDesc());
