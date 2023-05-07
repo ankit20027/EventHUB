@@ -1,6 +1,7 @@
 package com.example.eventhub;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -21,6 +22,7 @@ import android.widget.TextView;
 public class ClubPage extends AppCompatActivity {
 
     String clubName;
+    Button ShowEvents;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,8 @@ public class ClubPage extends AppCompatActivity {
         TextView textView = findViewById(R.id.clubPageHeading);
         textView.setText(clubName);
         textView.setTypeface(null, Typeface.BOLD_ITALIC);
+
+        ShowEvents = findViewById(R.id.ShowEvents);
 
         String imageName = clubName.toLowerCase() ;
 
@@ -48,6 +52,15 @@ public class ClubPage extends AppCompatActivity {
         fragmentTransaction.commit();
         Button button = findViewById(R.id.upcomingEvents);
         button.setVisibility(View.GONE);
+
+
+        ShowEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent  = new Intent(ClubPage.this, Calendar_ListView.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void moveToUpcomingEvents(View view){

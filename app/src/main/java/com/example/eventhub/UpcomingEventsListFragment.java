@@ -84,6 +84,7 @@ public class UpcomingEventsListFragment extends Fragment implements RecyclerView
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 

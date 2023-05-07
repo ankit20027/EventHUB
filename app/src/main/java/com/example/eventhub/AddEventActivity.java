@@ -1,8 +1,10 @@
 package com.example.eventhub;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -27,6 +29,13 @@ public class AddEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
+
+        ConstraintLayout constraintLayout = findViewById(R.id.constraint_ID);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2500);
+        animationDrawable.setExitFadeDuration(5500);
+        animationDrawable.start();
+
         String clubName = getIntent().getStringExtra("clubName");
         reff = FirebaseDatabase.getInstance().getReference();
         submitButton = findViewById(R.id.submitButton);
@@ -64,16 +73,13 @@ public class AddEventActivity extends AppCompatActivity {
                     System.out.println("The read failed");
                 }
             });
-//            Toast.makeText(getApplicationContext(), "Event gaya database me", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Successfully added the event.", Toast.LENGTH_SHORT).show();
             onDestroy();
         });
     }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        Toast.makeText(this, "Successfully added the event.", Toast.LENGTH_SHORT).show();
         return ;
     }
 }

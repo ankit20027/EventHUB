@@ -5,6 +5,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -21,6 +22,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Typeface;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.ParseException;
 import android.net.Uri;
 import android.os.Build;
@@ -71,8 +73,13 @@ public class EventPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_page);
         Button Reminder_Notification = findViewById(R.id.Reminder_Notification);
-        Button button = findViewById(R.id.button);
         Button ShowEvents = findViewById(R.id.ShowEvents);
+
+        ConstraintLayout constraintLayout = findViewById(R.id.eventPageID);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2500);
+        animationDrawable.setExitFadeDuration(5500);
+        animationDrawable.start();
 
         // Fetching Events detail from prev component.
         Intent intent = getIntent();
@@ -82,8 +89,8 @@ public class EventPage extends AppCompatActivity {
         dateString = intent.getStringExtra("TIME");
         venue = intent.getStringExtra("VENUE");
 
-        String description = "ORGANIZER: " + organizer + "\n\n"  + "DATE: " + dateString + "\n\nVENUE: " + venue ;
-        description += "\n\n" + desc;
+        String description = "ORGANIZER: " + organizer + "\n"  + "DATE: " + dateString + "\nVENUE: " + venue ;
+        description += "\n" + desc;
 
         // Set text in views.
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView eventName = findViewById(R.id.eventName);
@@ -115,12 +122,6 @@ public class EventPage extends AppCompatActivity {
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Del();
-            }
-        });
 
         ShowEvents.setOnClickListener(new View.OnClickListener() {
             @Override

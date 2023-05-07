@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_list"
+    android:id="@+id/constraint_ID"
     tools:context=".AddEventActivity">
 
     <EditText
@@ -11,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
+        android:textStyle="bold"
         android:ems="10"
         android:hint="dd-MM-yyyy hh:mm:ss"
         android:inputType="textPersonName"
@@ -25,6 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
+        android:textStyle="bold"
         android:ems="10"
         android:hint="Event Organizer"
         android:inputType="textPersonName"
@@ -39,6 +43,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
+        android:textStyle="bold"
+
         android:ems="10"
         android:hint="Event Venue"
         android:inputType="textPersonName"
@@ -52,6 +58,7 @@
         android:id="@+id/descText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:layout_marginTop="36dp"
         android:ems="10"
         android:hint="Event Desc"
@@ -67,6 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
+        android:textStyle="bold"
         android:ems="10"
         android:hint="Event Name"
         android:inputType="textPersonName"
@@ -89,9 +97,11 @@
 
     <Button
         android:id="@+id/submitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit Event"
+        android:layout_width="131dp"
+        android:layout_height="46dp"
+        android:background="@drawable/register_button"
+        android:text="Add Event"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
