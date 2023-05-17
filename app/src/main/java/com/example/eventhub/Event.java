@@ -1,20 +1,31 @@
 package com.example.eventhub;
 
+import java.util.ArrayList;
+
 public class Event {
-    private String name, time, venue, desc, organizer; // dd-MM-yyyy hh:mm:ss
+    private String organizer,name, time, venue, desc; // dd-MM-yyyy hh:mm:ss
     private Boolean hasHappened;
 
-    public Event() {
+    public Event(){
 
     }
 
-    public Event(String _name, String _time, String _venue, String _desc, String _organizer, Boolean _hasHappened) {
+    public Event(String _name, String _time, String _venue, String _desc, String organizer, Boolean _hasHappened) {
         this.name = _name;
         this.time = _time;
         this.venue = _venue;
         this.desc = _desc;
-        this.organizer = _organizer;
+        this.organizer = organizer;
         this.hasHappened = _hasHappened;
+    }
+
+
+    public String getOrganizer() {
+        return organizer;
+    }
+
+    public void setOrganizer(String organizer) {
+        this.organizer = organizer;
     }
 
     public String getName() {
@@ -56,4 +67,5 @@ public class Event {
     public void setHasHappened(Boolean hasHappened) {
         this.hasHappened = hasHappened;
     }
+
 }
